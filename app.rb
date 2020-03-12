@@ -78,6 +78,10 @@ end
 
 post "/rsvps/:id/update" do
     puts "params: #{params}"
+     
+    @rsvp = rsvps_table.where(id: params["id"]).to_a[0]
+    @event = events_table.where(id: @rsvp[:event_id]).to_a[0]
+    
 
     view "update_rsvp"
 end
@@ -139,5 +143,11 @@ end
 get "/logout" do
     # remove encrypted cookie for logged out user
     session["user_id"] = nil
-    view "logout"
+    redirect "/logins/new"
+end
+
+get '/send_text' do
+    account_sid = ENV["TWILIO_ACCOUNT_SID"]
+    auth_token = 
+    #....
 end
